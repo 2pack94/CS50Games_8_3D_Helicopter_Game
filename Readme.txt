@@ -22,14 +22,17 @@ The Game is 3D, but movement is restricted to 2 dimensions.
 Unity Editor:
 Game Objects are listed on the left in the Hierarchy Window. The Game Objects are displayed in the Scene View.
 A selected Game Object can be focused in the Scene View by hovering the mouse over the Scene View and pressing "F".
-Components can be assigned to Game Objects to give them their desired behavior. They are displayed on the right in the Inspector Window.
+Components can be assigned to Game Objects to give them their desired behavior.
+They are displayed on the right in the Inspector Window.
 Unity uses a composition design pattern instead of defining the behavior of objects through class inheritance.
 Every Game Object has a Transform component that defines Position, Rotation and Scale.
 Position in the Scene is measured in a Unity internal scale that represents 1 meter by default.
 Game Objects can have a parent and child relationship. Changes in a parents Transform component also affects all children.
 Scene view Settings:
-Tool handle Rotation: Specifies if the Tools (e.g. Transform Tool) are displayed in the local Game Object rotation or with no rotation (global).
-Tool handle Position: Specifies if the Tools (e.g. Transform Tool) are displayed at the pivot point or at the center of the Game Object.
+Tool handle Rotation:
+Specifies if the Tools (e.g. Transform Tool) are displayed in the local Game Object rotation or with no rotation (global).
+Tool handle Position:
+Specifies if the Tools (e.g. Transform Tool) are displayed at the pivot point or at the center of the Game Object.
 
 Copy and paste Components from one Game Object to another:
 Select source Game Object -> in the inspector window find the component and click on the '...' symbol -> Copy Component
@@ -40,7 +43,8 @@ Next to built-in Components, custom Components can be created with C# Scripts.
 A Component that is implemented in a Script must inherit from MonoBehaviour so it can be attached to a GameObject.
 Public (non-static) fields in a Component will be serialized and exposed in the Editor to be modifiable.
 See also: https://docs.unity3d.com/ScriptReference/SerializeField.html
-MonoBehaviour has a gameObject property that contains the GameObject that this component is attached to. A Component is always attached to a GameObject.
+MonoBehaviour has a gameObject property that contains the GameObject that this component is attached to.
+A Component is always attached to a GameObject.
 GameObject API: https://docs.unity3d.com/ScriptReference/GameObject.html
 MonoBehaviour API: https://docs.unity3d.com/ScriptReference/MonoBehaviour.html
 Parents and children of the GameObject can be accessed from its Transform Component available via the transform property.
@@ -71,13 +75,20 @@ Apply changes made on an instantiated prefab: Inspector window -> Overrides -> A
 
 Prefab Variants: https://docs.unity3d.com/Manual/PrefabVariants.html
 
+Prefab unpacking: https://docs.unity3d.com/Manual/UnpackingPrefabInstances.html
+Prefab unpacking converts a prefab instance to a regular GameObject and removes the links to its prefab asset.
+Right-click the prefab instance in the Hierarchy window -> Prefab -> "Unpack" or "Unpack completely"
+Unpacking completely also unpacks all children of the selected prefab.
+
 Colliders: https://docs.unity3d.com/Manual/CollidersOverview.html
 There are different collider shapes available as built-in components (e.g. Box Collider).
-If a Collider is set as a trigger, the OnTriggerEnter function is called when it collides with another collider.
-For a Game Object to use physics, it needs the Rigidbody Component.
+If a GameObject has a Collider set as a trigger, the OnTriggerEnter function is called when it collides with another collider
+and either this or the other GameObject have a Rigidbody attached.
+A collider set as a trigger will not resolve collisions, it is only used for collision callback functions.
+For a GameObject to use physics, it needs a Rigidbody Component.
 
 Collider interactions:
-Static collider: A GameObject that has only a collider.    Static colliders should never be moved (this could result in unwanted physics behavior).
+Static collider: A GameObject that has only a collider. Static colliders don't respond physically to collisions.
 Kinematic collider: A Game Object that has a Rigidbody and kinematic is set to true. Kinematic Objects do not react to physics forces.
 Dynamic collider: A Game Object that has a Rigidbody and kinematic is set to false.
 A Rigidbody in the parent Game Object applies to all its children (see Compound Colliders).
@@ -93,7 +104,8 @@ There are a number of Unity systems which can include a static GameObject in the
 UI:
 The are different UI systems in Unity: https://docs.unity3d.com/Manual/UIToolkits.html
 The currently standard one is Unity UI: https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
-The parent Game Object of all UI Game Objects is a canvas. The canvas is rendered inside of the scene and has the same size as the game resolution.
+The parent Game Object of all UI Game Objects is a canvas.
+The canvas is rendered inside of the scene and has the same size as the game resolution.
 Objects that contain Text should use the TextMeshPro Component. TextMeshPro can be installed via the Package Manager.
 
 Input:
@@ -137,6 +149,10 @@ Animations: https://docs.unity3d.com/Manual/AnimationOverview.html
 2. Add Animator Controller (contains animation state machine) to the Animator Component.
 3. Create an animation clip with the Animation Window (Window -> Animation -> Animation) or import an existing one.
 4. Assign Animation clip to a state in the Animator Controller.
+
+Animation Parameters: https://docs.unity3d.com/Manual/AnimationParameters.html
+Animation Parameters can be accessed by scripts to control the flow of the animation state machine.
+An animation can be also played directly without a transition with Animator.Play(<animation_name>).
 
 Export Blender Models:
 Make sure the pivot point is at the desired location:

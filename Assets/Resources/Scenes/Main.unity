@@ -1108,11 +1108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6297c9f03e11a2343be0a92d52a896dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 73098991}
   scrollSpeed: 10
   increaseScrollSpeedPeriod: 15
   increaseScrollSpeedAmount: 1
   scrollSpeedMax: 40
-  playerInput: {fileID: 73098991}
 --- !u!4 &1299486891
 Transform:
   m_ObjectHideFlags: 0

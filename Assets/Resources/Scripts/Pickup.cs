@@ -6,11 +6,14 @@ public class Pickup : MonoBehaviour
 {
     [Tooltip("The amount of coins that the player gets when collected.")]
     public int value = 1;
-    // Optional Particle System and Audio Prefabs to play when collected.
     // The Prefabs also have the ScrollAndDestroy component.
     // Particle system and Audio that are components of the Pickup prefab cannot be used,
     // because they would get destroyed when the Pickup gets destroyed.
+    // It's also important that each Pickup can instantiate its own audio/ particle prefab and not reference
+    // the same GameObject, so multiple audios/ particles can be played at the same time.
+    [Tooltip("Optional Particle System Prefab to play on pickup collection.")]
     public ParticleSystem particlesPrefab;
+    [Tooltip("Optional Audio Source Prefab to play on pickup collection.")]
     public AudioSource audioPrefab;
     private bool isDestroyed = false;
     // in degrees / s
@@ -45,7 +48,8 @@ public class Pickup : MonoBehaviour
 
             pickupCollector.Pickup(value);
 
-            // Set a flag to avoid that the Pickup is collected multiple times if it collides with multiple helicopter colliders in the same frame.
+            // Set a flag to avoid that the Pickup is collected multiple times if it collides with multiple
+            // helicopter colliders in the same frame.
             isDestroyed = true;
             Destroy(gameObject);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScrollAndDestroy : MonoBehaviour
 {
-    // Factor that is multiplied with the base scroll speed
+    [Tooltip("Factor that is multiplied with the base scroll speed.")]
     public float speedMultiplicator = 1f;
     private GameManager gameManager;
 

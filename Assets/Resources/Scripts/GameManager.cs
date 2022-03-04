@@ -10,16 +10,19 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [Tooltip("Input Action Asset for the Player Input.")]
+    public PlayerInput playerInput;
     [Tooltip("Base scroll speed of obstacles and coins.")]
+    [Min(0f)]
     public float scrollSpeed = 10f;
     [Tooltip("Period in seconds to increase the scroll speed by the specified amount.")]
+    [Min(0f)]
     public float increaseScrollSpeedPeriod = 15f;
     [Tooltip("Amount to increase the scroll speed after each period.")]
     public float increaseScrollSpeedAmount = 1f;
     [Tooltip("Maximum scroll speed amount.")]
+    [Min(0f)]
     public float scrollSpeedMax = 40f;
-    [Tooltip("Input Action Asset for the Player Input.")]
-    public PlayerInput playerInput;
 
     // Position to the right/ left to spawn/ despawn obstacles.
     public readonly static float spawnPosX = 30;

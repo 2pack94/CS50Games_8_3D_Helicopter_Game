@@ -8,9 +8,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class HeliController : MonoBehaviour
 {
+    [Tooltip("Movement speed of the Helicopter.")]
+    [Min(0f)]
     public float speed = 20f;
     private Rigidbody rigidBody;
     private Vector2 movementVector;
+    // Coordinates of the screen boundaries for movement restriction.
     private Vector2 boundaryRightTop = new(20f, 9f);
     private Vector2 boundaryLeftBottom = new(-20f, -9.5f);
 
@@ -47,7 +50,8 @@ public class HeliController : MonoBehaviour
     }
 
     // The Player Input Component is attached to a Game Object that is at the root of the scene.
-    // The behavior field is set to Broadcast Messages. This makes the Input Action callbacks available to every child object in the hierarchy.
+    // The behavior field is set to Broadcast Messages. This makes the Input Action callbacks available to every
+    // child object in the hierarchy.
     private void OnMovePlayer(InputValue movementValue)
     {
         // Called on pressing the movement keys. movementVector is a unit vector.

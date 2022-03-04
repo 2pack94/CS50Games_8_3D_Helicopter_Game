@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Destructible : MonoBehaviour
 {
-    // Optional Particle System and Audio Prefabs to play before destruction.
     // The Prefabs also have the ScrollAndDestroy component.
+    [Tooltip("Optional Particle System Prefab to play before destruction.")]
     public ParticleSystem destroyParticlesPrefab;
+    [Tooltip("Optional Audio Source Prefab to play before destruction.")]
     public AudioSource destroyAudioPrefab;
     // Publish an event before destroying the object.
     public event EventHandler<GameObject> BeforeDestroyObject;
@@ -28,7 +29,8 @@ public class Destructible : MonoBehaviour
 
         BeforeDestroyObject?.Invoke(this, gameObject);
         
-        // Set a flag to avoid entering this function multiple times if the GameObject collides with multiple Colliders in the same frame.
+        // Set a flag to avoid entering this function multiple times if the GameObject collides with
+        // multiple Colliders in the same frame.
         isDestroyed = true;
         Destroy(gameObject);
     }

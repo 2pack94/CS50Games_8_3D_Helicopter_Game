@@ -9,6 +9,7 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class GameOverText : MonoBehaviour
 {
+    [Tooltip("Reference to the helicopter to display the Game Over Text when it was destroyed.")]
     public GameObject helicopter;
     private TextMeshProUGUI textMesh;
     private int coins;

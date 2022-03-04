@@ -33,43 +33,33 @@ public class Spawner : MonoBehaviour
 
             GameObject spawnedObj = Instantiate(prefabs[Random.Range(0, prefabs.Length)],
                 new Vector3(GameManager.spawnPosX, Random.Range(spawnHeightMin, spawnHeightMax), GameManager.scrollPosZ),
-                Quaternion.Euler(spawnRotation.x, spawnRotation.y, spawnRotation.z));
+                Quaternion.Euler(spawnRotation));
 
             // If the spawned Game Object intersects with others, despawn it or despawn others depending on its type.
 
             // Loop through every collider in the instantiated prefab.
             foreach (var boxCollider in spawnedObj.GetComponents<BoxCollider>())
             {
-                // Make a temporary GameObject that has the exact dimensions, position and rotation of the collider.
-                GameObject tmpObject = new();
-                // The Transform of the Collider is the same as for its GameObject.
-                tmpObject.transform.SetPositionAndRotation(boxCollider.transform.position, boxCollider.transform.rotation);
+                // Get the global dimensions, position and rotation of the box collider.
+                // The Transform of the Collider is the Transform its GameObject.
+                // Vector3.Scale() multiplies two vectors component-wise.
                 // The BoxCollider size is unaffected by the GameObject scale, so it must be manually multiplied by the scale.
-                tmpObject.transform.localScale = new(
-                    boxCollider.size.x * boxCollider.transform.localScale.x,
-                    boxCollider.size.y * boxCollider.transform.localScale.y,
-                    boxCollider.size.z * boxCollider.transform.localScale.z
-                );
-                // The temporary GameObject must be translated to the BoxCollider position in local coordinates.
-                // This is needed if the GameObject has a pivot off center and a rotation that would move the center of the GameObject.
                 // The BoxCollider center is relative to the GameObject position/ rotation and unaffected by the GameObject scale.
-                tmpObject.transform.Translate(
-                    new(
-                        boxCollider.center.x * boxCollider.transform.localScale.x,
-                        boxCollider.center.y * boxCollider.transform.localScale.y,
-                        boxCollider.center.z * boxCollider.transform.localScale.z
-                    ),
-                    Space.Self
-                );
+                // Translate transform.position in local coordinates towards the relative box collider position to get the
+                // absolute box collider position.
+                // transform.right, transform.up, transform.forward are vectors that represent the local x, y, z axis.
+                Vector3 boxColliderRelPos = Vector3.Scale(boxCollider.center, boxCollider.transform.localScale);
+                Vector3 boxColliderPos = boxCollider.transform.position +
+                    boxCollider.transform.right * boxColliderRelPos.x +
+                    boxCollider.transform.up * boxColliderRelPos.y +
+                    boxCollider.transform.forward * boxColliderRelPos.z;
+                Quaternion boxColliderRotation = boxCollider.transform.rotation;
+                // Extends means half the edge size.
+                Vector3 boxColliderExtends = Vector3.Scale(boxCollider.size, boxCollider.transform.localScale) / 2;
 
-                // Use the temporary GameObject transform for OverlapBox.
                 // All colliders that are intersecting with this box are returned.
                 // This works because all GameObjects only use Box Collider.
-                // second parameter: OverlapBox extends (half edge size).
-                Collider[] hitColliders = Physics.OverlapBox(tmpObject.transform.position,
-                    tmpObject.transform.localScale / 2, tmpObject.transform.rotation);
-
-                Destroy(tmpObject);
+                Collider[] hitColliders = Physics.OverlapBox(boxColliderPos, boxColliderExtends, boxColliderRotation);
 
                 // Loop through every intersecting collider.
                 foreach (var hitCollider in hitColliders)

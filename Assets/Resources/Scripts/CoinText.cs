@@ -6,6 +6,7 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class CoinText : MonoBehaviour
 {
+    [Tooltip("Reference to the helicopter to update the number of collected coins.")]
     public GameObject helicopter;
     private TextMeshProUGUI textMesh;
     private int coins = 0;
