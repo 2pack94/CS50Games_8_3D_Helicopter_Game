@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScrollAndDestroy : MonoBehaviour
 {
     [Tooltip("Factor that is multiplied with the base scroll speed.")]
-    public float speedMultiplicator = 1f;
+    public float speedMultiplier = 1f;
     private GameManager gameManager;
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class ScrollAndDestroy : MonoBehaviour
             float scrollSpeed = 10f;
             if (gameManager)
                 scrollSpeed = gameManager.scrollSpeed;
-            transform.Translate(-scrollSpeed * speedMultiplicator * Time.deltaTime, 0, 0, Space.World);
+            transform.Translate(-scrollSpeed * speedMultiplier * Time.deltaTime, 0, 0, Space.World);
         }
     }
 }

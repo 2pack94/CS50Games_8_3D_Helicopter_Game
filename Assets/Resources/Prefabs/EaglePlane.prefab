@@ -252,7 +252,7 @@ MeshRenderer:
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &1224515909238762814
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -269,7 +269,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6300554716214401323
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,4 +501,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6160f3bb1416d943821c4bca13e6968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMultiplicator: 2
+  speedMultiplier: 2

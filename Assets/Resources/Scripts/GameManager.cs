@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     // Awake is called before any Start functions
     void Awake()
     {
-        // Set the maximal frame rate of the game.
+        // Set the maximum frame rate of the game.
         Application.targetFrameRate = 60;
     }
 

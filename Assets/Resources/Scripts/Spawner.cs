@@ -43,11 +43,11 @@ public class Spawner : MonoBehaviour
                 // Get the global dimensions, position and rotation of the box collider.
                 // The Transform of the Collider is the Transform its GameObject.
                 // Vector3.Scale() multiplies two vectors component-wise.
-                // The BoxCollider size is unaffected by the GameObject scale, so it must be manually multiplied by the scale.
-                // The BoxCollider center is relative to the GameObject position/ rotation and unaffected by the GameObject scale.
-                // Translate transform.position in local coordinates towards the relative box collider position to get the
-                // absolute box collider position.
+                // The BoxCollider size and center are in the GameObjects local space, so the GameObjects position,
+                // rotation and scale have to be used to translate them to world space.
                 // transform.right, transform.up, transform.forward are vectors that represent the local x, y, z axis.
+                // The absolute position could also be calculated like this:
+                // boxCollider.transform.TransformPoint(boxCollider.center)
                 Vector3 boxColliderRelPos = Vector3.Scale(boxCollider.center, boxCollider.transform.localScale);
                 Vector3 boxColliderPos = boxCollider.transform.position +
                     boxCollider.transform.right * boxColliderRelPos.x +
@@ -78,7 +78,8 @@ public class Spawner : MonoBehaviour
                     else if (spawnedObj.GetComponent<Destructible>())
                     {
                         // Destroy the spawned Game Object if it intersects with other solid Game Objects.
-                        if (hitCollider.gameObject.GetComponent<Indestructible>() || hitCollider.gameObject.GetComponent<Destructible>())
+                        if (hitCollider.gameObject.GetComponent<Indestructible>() ||
+                            hitCollider.gameObject.GetComponent<Destructible>())
                         {
                             Destroy(spawnedObj);
                             break;
@@ -87,7 +88,8 @@ public class Spawner : MonoBehaviour
                     else if (spawnedObj.GetComponent<Pickup>())
                     {
                         // Destroy the Pickup if it intersects with other Pickups or an Indestructible.
-                        if (hitCollider.gameObject.GetComponent<Indestructible>() || hitCollider.gameObject.GetComponent<Pickup>())
+                        if (hitCollider.gameObject.GetComponent<Indestructible>() ||
+                            hitCollider.gameObject.GetComponent<Pickup>())
                         {
                             Destroy(spawnedObj);
                             break;

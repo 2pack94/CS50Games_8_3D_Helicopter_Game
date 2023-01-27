@@ -15,7 +15,8 @@ After adding the Packages to the Unity account in the Asset Store, they can be i
 Window -> Package Manager. Select in the drop-down: Packages: My Assets
 
 Helicopter Game Description:
-In this Game the Player controls a Helicopter. The camera stays static. Off screen on the right Obstacles and coins are spawning.
+In this Game the Player controls a Helicopter. The camera stays static.
+Off screen on the right Obstacles and coins are spawning.
 They are scrolling to the left. The Helicopter must dodge the obstacles and collect the coins.
 The Game is 3D, but movement is restricted to 2 dimensions.
 
@@ -59,7 +60,7 @@ By default, Unity resumes a coroutine on the frame after a yield statement.
 WaitForSeconds can be used to spread the execution over a period of time.
 
 Scripting Tips:
-- The operators "??" or "?." should not be used on unity objects:
+- The operators "??" or "?." should not be used on Unity objects:
 https://github.com/JetBrains/resharper-unity/wiki/Possible-unintended-bypass-of-lifetime-check-of-underlying-Unity-engine-object
 - When destroying a Game Object with Destroy() it gets destroyed at the end of the frame.
 - Visual studio can attach its debugger to Unity
@@ -67,10 +68,12 @@ https://github.com/JetBrains/resharper-unity/wiki/Possible-unintended-bypass-of-
 
 Prefabs: https://docs.unity3d.com/Manual/Prefabs.html
 A Prefab is an Asset that contains a template of a Game Object.
-A Game Object can be turned into a prefab by dragging and dropping it from the Hierarchy window into a folder in the Project window.
+A Game Object can be turned into a prefab by dragging and dropping it from the Hierarchy window into a folder in
+the Project window.
 A Prefab can be put into the Scene from the Editor or it can be instantiated in a script during runtime.
 Changes to an instantiated prefab in the Hierarchy window are only applied to the selected instance.
-Changes to a prefab in the project window (or in the prefab editor) are applied to the prefab file on disk and to all of its instances.
+Changes to a prefab in the project window (or in the prefab editor) are applied to the prefab file on disk and
+to all of its instances.
 Apply changes made on an instantiated prefab: Inspector window -> Overrides -> Apply All
 
 Prefab Variants: https://docs.unity3d.com/Manual/PrefabVariants.html
@@ -82,14 +85,18 @@ Unpacking completely also unpacks all children of the selected prefab.
 
 Colliders: https://docs.unity3d.com/Manual/CollidersOverview.html
 There are different collider shapes available as built-in components (e.g. Box Collider).
-If a GameObject has a Collider set as a trigger, the OnTriggerEnter function is called when it collides with another collider
-and either this or the other GameObject have a Rigidbody attached.
+When a Collision occurs and at least one of the colliding GameObjects has a non-kinematic Rigidbody attached, then
+the OnCollisionEnter function will be called.
+If a GameObject has a Collider set as a trigger, the OnTriggerEnter function is called when it starts intersecting
+with another collider and either this or the other GameObject have a Rigidbody attached.
 A collider set as a trigger will not resolve collisions, it is only used for collision callback functions.
+Collision callbacks are also called when a GameObject has a CharacterController Component attached.
 For a GameObject to use physics, it needs a Rigidbody Component.
 
 Collider interactions:
 Static collider: A GameObject that has only a collider. Static colliders don't respond physically to collisions.
-Kinematic collider: A Game Object that has a Rigidbody and kinematic is set to true. Kinematic Objects do not react to physics forces.
+Kinematic collider: A Game Object that has a Rigidbody and kinematic is set to true.
+    Kinematic Objects do not react to physics forces.
 Dynamic collider: A Game Object that has a Rigidbody and kinematic is set to false.
 A Rigidbody in the parent Game Object applies to all its children (see Compound Colliders).
 
@@ -120,12 +127,15 @@ It can also be changed later, but existing configurations must be changed manual
 Materials and Textures:
 https://docs.unity3d.com/Manual/Textures.html
 https://docs.unity3d.com/Manual/materials-introduction.html
+When placing an image under the Assets folder in a 3D game, it automatically gets imported as a texture.
 After importing a texture, it should be assigned to a Material.
 The material can then be applied to a mesh, Particle System, or GUI Texture.
-Texture mapping is the list of 2D UV coordinates (u,v) (texture coordinates)
-mapped to their 3D vertex counterparts on the surface mesh in three dimensions (x,y,z).
-Modelling and UV mapping is typically done in external tools like blender: https://docs.blender.org/manual/en/latest/editors/uv/introduction.html
-The Unity Package ProBuilder also supports modelling and UV mapping: https://docs.unity3d.com/Packages/com.unity.probuilder@4.0/manual/workflow-uvs.html
+Texture mapping is the list of 2D UV coordinates (u,v) (texture coordinates) mapped to their
+3D vertex counterparts on the surface mesh in three dimensions (x,y,z).
+Modelling and UV mapping is typically done in external tools like blender:
+https://docs.blender.org/manual/en/latest/editors/uv/introduction.html
+The Unity Package ProBuilder also supports modelling and UV mapping:
+https://docs.unity3d.com/Packages/com.unity.probuilder@5.0/manual/workflow-uvs.html
 
 Lighting:
 https://www.youtube.com/watch?v=KJ4fl-KBDR8
@@ -148,11 +158,13 @@ Animations: https://docs.unity3d.com/Manual/AnimationOverview.html
 1. Assign Animator Component to a Game Object.
 2. Add Animator Controller (contains animation state machine) to the Animator Component.
 3. Create an animation clip with the Animation Window (Window -> Animation -> Animation) or import an existing one.
+The GameObject that should be animated must be selected in the Hierarchy for this.
 4. Assign Animation clip to a state in the Animator Controller.
 
 Animation Parameters: https://docs.unity3d.com/Manual/AnimationParameters.html
 Animation Parameters can be accessed by scripts to control the flow of the animation state machine.
-An animation can be also played directly without a transition with Animator.Play(<animation_name>).
+An animation can be also played directly without a transition with Animator.Play(<animation_name>)
+and with a transition with Animator.CrossFade(<animation_name>, <transition_time>).
 
 Export Blender Models:
 Make sure the pivot point is at the desired location:
